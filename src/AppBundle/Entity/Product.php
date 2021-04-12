@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 
-use Doctrine\ORM\Mapping as ORM ;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
@@ -13,8 +13,8 @@ use Doctrine\ORM\Mapping as ORM ;
 class Product{
     /**
      * @ORM\Id
-     * @ORM\Column(name="id" , type="integer")
-     * ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id ;
 
