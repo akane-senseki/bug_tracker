@@ -40,7 +40,14 @@
 					</td>
 					<td>{{ bug.reporter.name }}</td>
 					<td>{{ bug.engineer.name }}</td>
-					<td>{{ bug.products|join(", ") }}</td>
+					<td>
+                        {# プロダクト名を蓮k津して表示する #}
+                        {% set str_products = [] %}
+                        {% for product in bug.products %}
+                            {% set str_products = str_products|merge([product.name]) %}
+                        {% endfor %}
+                        {{ str_products|join(", ") }}
+                    </td>
 					<td>
 						<a href="{{ path('bug_show', { 'id': bug.id }) }}" class="btn btn-default btn-xs" role="button">show</a>
 						<a href="{{ path('bug_edit', { 'id': bug.id }) }}" class="btn btn-primary btn-xs" role="button">edit</a>
