@@ -55,7 +55,6 @@ class BugController extends Controller
 
             return $this->redirectToRoute('bug_show', array('id' => $bug->getId()));
         }
-
         return $this->render('bug/new.html.twig', array(
             'bug' => $bug,
             'form' => $form->createView(),

@@ -24,8 +24,14 @@ class User{
      */
     protected $name ;
 
-    /**
+        /**
      * @ORM\OneToMany(targetEntity="Bug" , mappedBy="reporter")
+     * @var Bug[]
+     */
+    protected $reporterBugs = null ;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Bug" , mappedBy="engineer")
      * @var Bug[]
      */
     protected $assignedBugs = null ;
@@ -102,5 +108,39 @@ class User{
     public function getAssignedBugs()
     {
         return $this->assignedBugs;
+    }
+
+    /**
+     * Add reporterBug
+     *
+     * @param \AppBundle\Entity\Bug $reporterBug
+     *
+     * @return User
+     */
+    public function addReporterBug(\AppBundle\Entity\Bug $reporterBug)
+    {
+        $this->reporterBugs[] = $reporterBug;
+
+        return $this;
+    }
+
+    /**
+     * Remove reporterBug
+     *
+     * @param \AppBundle\Entity\Bug $reporterBug
+     */
+    public function removeReporterBug(\AppBundle\Entity\Bug $reporterBug)
+    {
+        $this->reporterBugs->removeElement($reporterBug);
+    }
+
+    /**
+     * Get reporterBugs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReporterBugs()
+    {
+        return $this->reporterBugs;
     }
 }
