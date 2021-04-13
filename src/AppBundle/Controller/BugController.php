@@ -26,13 +26,16 @@ class BugController extends Controller
      */
  public function indexAction(Request $request)
     {
-        $dql = "SELECT b, e, r , p FROM AppBundle:Bug b " .
-               "JOIN b.engineer e JOIN b.reporter r JOIN b.products p " .
-               "ORDER BY b.created DESC";
-               //上記は連なってdqlに格納される為最後にスペースを入れないと文字が繋がってしまうため注意
         /** @var Query $query */
-        $query = $this->getDoctrine()->getManager()->createQuery($dql);
-        $query->setHydrationMode(Query::HYDRATE_ARRAY);
+        $query = $this->getDoctrine()->getRepository("AppBundle:Bug")->getRecentBugsArrayQuery();
+
+        //$dql = "SELECT b, e, r , p FROM AppBundle:Bug b " .
+          //     "JOIN b.engineer e JOIN b.reporter r JOIN b.products p " .
+            //   "ORDER BY b.created DESC";
+               //上記は連なってdqlに格納される為最後にスペースを入れないと文字が繋がってしまうため注意
+        //** @var Query $query */
+        //$query = $this->getDoctrine()->getManager()->createQuery($dql);
+        //$query->setHydrationMode(Query::HYDRATE_ARRAY);
         //setHybrationMode()でQuery::HYDRATE_ARRAYをセットするとDBの検索結果を配列にすることが出来る。
 
         $paginator = $this->get('knp_paginator');        
@@ -45,10 +48,6 @@ class BugController extends Controller
         // 上記paginate()は以下の２行と同様。
         // $query->setMaxResults(5);
         // $bugs = $query->getResult();
-
-        // デバッグコード（ハイドレーションの確認）
-        dump($query->getHydrationMode());
-        dump($pagination->getItems());
         
         return $this->render('bug/index.html.twig', array(
             'pagination' => $pagination,
