@@ -28,7 +28,7 @@ class User{
      * @ORM\OneToMany(targetEntity="Bug" , mappedBy="reporter")
      * @var Bug[]
      */
-    protected $reporterBugs = null ;
+    protected $reportedBugs = null ;
 
     /**
      * @ORM\OneToMany(targetEntity="Bug" , mappedBy="engineer")
@@ -52,61 +52,4 @@ class User{
         return $this->id;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return User
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Add assignedBug
-     *
-     * @param \AppBundle\Entity\Bug $assignedBug
-     *
-     * @return User
-     */
-    public function addAssignedBug(\AppBundle\Entity\Bug $assignedBug)
-    {
-        $this->assignedBugs[] = $assignedBug;
-
-        return $this;
-    }
-
-    /**
-     * Remove assignedBug
-     *
-     * @param \AppBundle\Entity\Bug $assignedBug
-     */
-    public function removeAssignedBug(\AppBundle\Entity\Bug $assignedBug)
-    {
-        $this->assignedBugs->removeElement($assignedBug);
-    }
-
-    /**
-     * Get assignedBugs
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getAssignedBugs()
-    {
-        return $this->assignedBugs;
-    }
 }

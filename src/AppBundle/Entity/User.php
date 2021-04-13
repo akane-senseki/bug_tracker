@@ -28,7 +28,7 @@ class User{
      * @ORM\OneToMany(targetEntity="Bug" , mappedBy="reporter")
      * @var Bug[]
      */
-    protected $reporterBugs = null ;
+    protected $reportedBugs = null ;
 
     /**
      * @ORM\OneToMany(targetEntity="Bug" , mappedBy="engineer")
@@ -52,6 +52,7 @@ class User{
         return $this->id;
     }
 
+
     /**
      * Set name
      *
@@ -74,6 +75,40 @@ class User{
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Add reportedBug
+     *
+     * @param \AppBundle\Entity\Bug $reportedBug
+     *
+     * @return User
+     */
+    public function addReportedBug(\AppBundle\Entity\Bug $reportedBug)
+    {
+        $this->reportedBugs[] = $reportedBug;
+
+        return $this;
+    }
+
+    /**
+     * Remove reportedBug
+     *
+     * @param \AppBundle\Entity\Bug $reportedBug
+     */
+    public function removeReportedBug(\AppBundle\Entity\Bug $reportedBug)
+    {
+        $this->reportedBugs->removeElement($reportedBug);
+    }
+
+    /**
+     * Get reportedBugs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReportedBugs()
+    {
+        return $this->reportedBugs;
     }
 
     /**
@@ -108,39 +143,5 @@ class User{
     public function getAssignedBugs()
     {
         return $this->assignedBugs;
-    }
-
-    /**
-     * Add reporterBug
-     *
-     * @param \AppBundle\Entity\Bug $reporterBug
-     *
-     * @return User
-     */
-    public function addReporterBug(\AppBundle\Entity\Bug $reporterBug)
-    {
-        $this->reporterBugs[] = $reporterBug;
-
-        return $this;
-    }
-
-    /**
-     * Remove reporterBug
-     *
-     * @param \AppBundle\Entity\Bug $reporterBug
-     */
-    public function removeReporterBug(\AppBundle\Entity\Bug $reporterBug)
-    {
-        $this->reporterBugs->removeElement($reporterBug);
-    }
-
-    /**
-     * Get reporterBugs
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getReporterBugs()
-    {
-        return $this->reporterBugs;
     }
 }
