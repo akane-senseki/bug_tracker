@@ -161,4 +161,24 @@ class BugController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * Close a Bug.
+     * 
+     * @Route("/{id}/close" , name="bug_close")
+     * @Method("PUT")
+     */
+    public function  closeAction(Request $request , $id){
+        $repository = $this->getDOctrine()->getRepository("AppBundle:Bug");
+        $bug = $repository->find($id);  
+        if(!$bug){
+            throw $this->createNotFoundException("No Bug found for id", ".$Id");
+        }
+        if($this->isCsrfTokenValid("close_bug" , $request->get("_token"))){
+            $em = $this->getDoctrine()->getManager();
+            $bug->close();
+            $em->flush();
+        }
+        return $this->redirectToRoute("bug_show" , ["id" =>$bug->getId()]);
+    }
 }

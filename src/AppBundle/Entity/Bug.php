@@ -65,6 +65,14 @@ class Bug{
         $this->products = new ArrayCollection();
     }
 
+    public function close(){
+        $this->setStatus(self::STATUS_CLOSE);
+    }
+
+    public function isClose(){
+        return $this->getStatus() == self::STATUS_CLOSE;
+    }
+
  
     /**
      * Get id
